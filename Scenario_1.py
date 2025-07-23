@@ -4,7 +4,7 @@ import requests
 import os
 from datetime import datetime
 
-base_path = os.getcwd()
+base_path = os.getcwd() + "/Scenario_1_data"
 today_date = datetime.now().strftime("%Y-%m-%d")
 
 class TransactionPipeline:
@@ -73,9 +73,9 @@ class TransactionPipeline:
         print("✅ Pipeline completed successfully.")
 
 
-raw_path = f"{base_path}/data/transactions.csv"
-clean_path = f"{base_path}/data/output/{today_date}/transactions_out.csv"
-quarantine_path = f"{base_path}/data/bad_data/{today_date}/transactions_invalid.csv"
+raw_path = f"{base_path}/transactions.csv"
+clean_path = f"{base_path}/output/{today_date}/transactions_out.csv"
+quarantine_path = f"{base_path}/bad_data/{today_date}/transactions_invalid.csv"
 webhook_url = "https://<your-logic-app-or-slack-webhook>"
 
 pipeline = TransactionPipeline(raw_path, clean_path, quarantine_path, webhook_url)
