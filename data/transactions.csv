@@ -1,12 +1,12 @@
-Transtransaction_id,customer_id,Timestamp,transaction_amount,PaymentMethod,Status
-TXN1001,U038,2025-07-21 13:58:00,325.9,UPI,Completed
+transaction_id,customer_id,Timestamp,transaction_amount,PaymentMethod,Status
+TXN1002,U038,2025-07-21 13:58:00,325.9,UPI,Completed
 TXN1002,U039,2025-07-21 11:22:00,431.33,PayPal,Pending
-TXN1003,U007,2025-07-21 12:15:00,134.83,UPI,Pending
+TXN1003,U007,2025-07-21 12:15:00,,UPI,Pending
 TXN1004,U034,2025-07-21 10:53:00,40.99,Credit Card,Completed
 TXN1005,U023,2025-07-21 12:00:00,236.93,PayPal,Pending
 TXN1006,U022,2025-07-21 14:07:00,18.65,PayPal,Completed
 TXN1007,U047,2025-07-21 12:48:00,111.32,Credit Card,Completed
-TXN1008,U036,2025-07-21 10:46:00,56.15,PayPal,Completed
+TXN1008,,2025-07-21 10:46:00,56.15,PayPal,Completed
 TXN1009,U042,2025-07-21 10:58:00,470.2,Net Banking,Failed
 TXN1010,U015,2025-07-21 14:32:00,127.72,Credit Card,Pending
 TXN1011,U013,2025-07-21 10:23:00,196.8,UPI,Completed

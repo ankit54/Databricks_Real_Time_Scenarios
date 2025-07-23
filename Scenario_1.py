@@ -1,17 +1,32 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import col
 import requests
+import os
+from datetime import datetime
+
+base_path = os.getcwd()
+today_date = datetime.now().strftime("%Y-%m-%d")
 
 class TransactionPipeline:
     def __init__(self, raw_path: str, clean_path: str, quarantine_path: str, webhook_url: str = None):
-        self.spark = SparkSession.builder.getOrCreate()
+        self.spark = SparkSession.builder \
+            .appName("MyPySparkApplication2") \
+            .master("local[*]") \
+            .getOrCreate()
+        
+
         self.raw_path = raw_path
         self.clean_path = clean_path
         self.quarantine_path = quarantine_path
         self.webhook_url = webhook_url
 
     def read_raw_data(self) -> DataFrame:
-        df = self.spark.read.option("header", "true").csv(self.raw_path)
+        df = self.spark.read \
+            .option("header", "true") \
+            .option("inferSchema", "true") \
+            .option("treatEmptyValuesAsNulls", "true") \
+            .csv(self.raw_path)
+
         return df
 
     def validate_data(self, df: DataFrame) -> tuple[DataFrame, DataFrame]:
@@ -24,11 +39,11 @@ class TransactionPipeline:
         return valid_df, bad_df
 
     def write_valid_data(self, valid_df: DataFrame):
-        valid_df.write.mode("append").format("delta").save(self.clean_path)
+        valid_df.write.mode("append").format("csv").save(self.clean_path)
 
     def write_invalid_data(self, bad_df: DataFrame):
         if bad_df.count() > 0:
-            bad_df.write.mode("append").format("delta").save(self.quarantine_path)
+            bad_df.write.mode("append").format("csv").save(self.quarantine_path)
 
     def send_alert(self, count: int):
         if self.webhook_url and count > 0:
@@ -58,9 +73,9 @@ class TransactionPipeline:
         print("✅ Pipeline completed successfully.")
 
 
-raw_path = "./data/transactions.csv"
-clean_path = "./data/output/transactions_out.csv"
-quarantine_path = "./data/bad_data/transactions_invalid.csv"
+raw_path = f"{base_path}/data/transactions.csv"
+clean_path = f"{base_path}/data/output/{today_date}/transactions_out.csv"
+quarantine_path = f"{base_path}/data/bad_data/{today_date}/transactions_invalid.csv"
 webhook_url = "https://<your-logic-app-or-slack-webhook>"
 
 pipeline = TransactionPipeline(raw_path, clean_path, quarantine_path, webhook_url)
