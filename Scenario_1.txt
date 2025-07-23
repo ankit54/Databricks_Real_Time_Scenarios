@@ -1,0 +1,23 @@
+Scenario 3: Managing Data Quality in a Delta Lake Pipeline
+
+You’ve built a data ingestion pipeline in Databricks using PySpark. The pipeline reads raw CSVs from Azure Blob and writes them into a Delta table after cleaning and transformation.
+
+Last week, your downstream analytics team reported issues with:
+
+    1.Missing values in transaction_amount
+
+    2.Duplicates based on transaction_id
+
+    3.Unexpected nulls in customer_id
+
+Question:
+
+How would you design or enhance your Databricks pipeline to:
+
+1. Detect and handle data quality issues
+
+2.Prevent bad data from polluting your Delta table
+
+3. Log or alert for auditing purposes
+
+Walk me through your approach as if you're implementing it in a real production pipeline.
