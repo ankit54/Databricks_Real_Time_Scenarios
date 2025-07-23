@@ -1,4 +1,4 @@
-Scenario 3: Managing Data Quality in a Delta Lake Pipeline
+Scenario 1: Managing Data Quality in a Delta Lake Pipeline
 
 You’ve built a data ingestion pipeline in Databricks using PySpark. The pipeline reads raw CSVs from Azure Blob and writes them into a Delta table after cleaning and transformation.
 
