@@ -1,4 +1,4 @@
-TransactionID,UserID,Timestamp,Amount,PaymentMethod,Status
+Transtransaction_id,customer_id,Timestamp,transaction_amount,PaymentMethod,Status
 TXN1001,U038,2025-07-21 13:58:00,325.9,UPI,Completed
 TXN1002,U039,2025-07-21 11:22:00,431.33,PayPal,Pending
 TXN1003,U007,2025-07-21 12:15:00,134.83,UPI,Pending
