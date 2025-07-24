@@ -6,7 +6,7 @@ from pyspark.sql.functions import udf
 import os
 from datetime import datetime
 
-base_path = os.getcwd() + "/Scenario_2"
+base_path = os.getcwd() + "/Swap_Seats"
 print(base_path)
 today_date = datetime.now().strftime("%Y-%m-%d")
 
@@ -52,4 +52,27 @@ swapped_df = df_grouped.withColumn("swapped", swap_udf("pairs")).select(explode(
 # # Step 5: Flatten to final format
 final_df = swapped_df.select(col("row.Seat"), col("row.Name")).orderBy("Seat")
 
-final_df.show()
+# final_df.show()
+
+# SQL APPROACH
+spark.sql("""
+WITH numbered AS (
+    SELECT Seat, Name, ROW_NUMBER() OVER (ORDER BY Seat) AS row_num
+          FROM {source_table}
+),
+paired AS (SELECT seat,
+                    CASE
+                        WHEN MOD(row_num, 2) = 1 AND row_num + 1 <= (SELECT max(row_num) FROM numbered) 
+                        THEN LEAD(Name) OVER (ORDER BY row_num)
+                        WHEN MOD(row_num, 2) = 0
+                        THEN LAG(Name) OVER (ORDER BY row_num)
+                        ELSE Name
+                    END AS Name_Swapped
+          FROM numbered
+          )
+SELECT Seat, Name_Swapped AS Name
+FROM paired
+ORDER BY Seat
+""", source_table=df).show()
+
+spark.stop()
