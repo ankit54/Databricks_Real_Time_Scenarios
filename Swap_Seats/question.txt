@@ -1,0 +1,22 @@
+Swap seats
+Handle both odd and even no.of records
+
+Input:
+| Seat | Name   |
+| ---- | ------ |
+| 1    | Aditya |
+| 2    | Arjun  |
+| 3    | Rekha  |
+| 4    | Sanjay |
+| 5    | Kiran |
+
+
+Output
+
+| seat | name   |      Remark             |
+| ---- | ------ | ----------------- |
+| 1    | Arjun  |                   |
+| 2    | Aditya |                   |
+| 3    | Sanjay |                   |
+| 4    | Rekha  |                   |
+| 5    | Kiran  | ✅ untouched (odd) |

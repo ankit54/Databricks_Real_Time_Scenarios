@@ -4,7 +4,7 @@ import requests
 import os
 from datetime import datetime
 
-base_path = os.getcwd() + "/Scenario_1_data"
+base_path = os.getcwd() + "/Handle_Bad_Data"
 today_date = datetime.now().strftime("%Y-%m-%d")
 
 class TransactionPipeline:
